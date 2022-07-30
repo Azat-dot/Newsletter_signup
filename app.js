@@ -39,10 +39,17 @@ app.post('/', function(req, res){
 
     const options = {
         method: "POST",
-        auth: "azat1:6dd6721a483da656b730057b174bb70d-us8"
+        auth: "azat1:4541dd4d1254e6f6d7768b07a8cddf4e-us8"
     }
 
    const request = https.request(url, options, function(response){
+
+    if (response.statusCode === 200){
+        res.sendFile(__dirname + "/success.html");
+    } else {
+        res.sendFile(__dirname + "/failure.html");
+    }
+
     response.on("data", function(data){
         console.log(JSON.parse(data));
     })
@@ -50,21 +57,20 @@ app.post('/', function(req, res){
 
     request.write(jsonData);
     request.end();
-
-    res.send()
 })
 
+app.post("/failure", function(req, res){
+    res.redirect("/");
+});
 
 app.listen(3000, function(){
     console.log("Server is running in port 3000");
 });
 
-// mailchimp
-// apikey
-// 6dd6721a483da656b730057b174bb70d-us8
-// 17bc6bcd401101465068fa1c54f32529-us8
 
-// audience Id
+
+
+// aud ID
 
 // ac3688b049
 
